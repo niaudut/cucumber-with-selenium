@@ -7,6 +7,8 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -22,9 +24,32 @@ public class Hooks{
      * Delete all cookies at the start of each scenario to avoid
      * shared state between tests
      */
-    public void openBrowser() throws MalformedURLException {
+    public void openBrowser() throws MalformedURLException { 	
     	System.out.println("Called openBrowser");
-    	driver = new ChromeDriver();
+    	
+    	String projectLocation = System.getProperty("user.dir");
+//    	System.setProperty("webdriver.gecko.driver", projectLocation+ "\\lib\\driver\\geckodriver.exe");
+//    	driver = new FirefoxDriver();
+
+    	System.setProperty("webdriver.chrome.driver", projectLocation+ "\\lib\\driver\\chromedriver.exe");
+    	ChromeOptions options = new ChromeOptions();    	
+//    	options.setExperimentalOption("useAutomationExtension", false);
+    	
+//    	driver.get(url);
+
+//    	options = webdriver.ChromeOptions()
+    	options.addArguments("start-maximized");
+//    	options.add_argument('headless')
+    	options.addArguments("disable-infobars");
+    	options.addArguments("--disable-extensions");
+    	options.addArguments("--disable-gpu");
+    	options.addArguments("--disable-dev-shm-usage");
+    	options.addArguments("--no-sandbox");
+    	WebDriver driver = new ChromeDriver(options);
+//    	options.add_argument('--remote-debugging-port=9222')
+//    	driver = webdriver.Chrome(options=options)
+
+//    	driver = new ChromeDriver();    	
     	driver.manage().deleteAllCookies();
     }
 
