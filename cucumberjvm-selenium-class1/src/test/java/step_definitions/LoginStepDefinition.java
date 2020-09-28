@@ -30,7 +30,7 @@ public class LoginStepDefinition {
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='username']")));
 	}
 
-	@When("^user input invalid {string} and {string}")
+	@When("^user input invalid (.*) and (.*)")
 	public void user_input_invalid_username_and_password(String username, String password) throws Throwable {
 		wait = new WebDriverWait(driver, 10);
 		wait.ignoring(WebDriverException.class);
@@ -44,6 +44,6 @@ public class LoginStepDefinition {
 	@Then("^user see error message")
 	public void user_see_error_message() throws Throwable {
 		String errorMessage = driver.findElement(By.xpath("//div[@class='error']")).getText();
-		Assert.assertEquals("Invalid Username or Password.", errorMessage);
+		Assert.assertEquals("Nama Pengguna/Kata Kunci Salah.", errorMessage);
 	}
 }
